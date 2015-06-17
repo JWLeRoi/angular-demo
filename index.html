@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="weather">
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>Angular Demo</title>
+    <link rel="stylesheet" type="text/css" href="style/bootstrap-3.3.5/bootstrap.min.css/"/>
+    <script type="text/javascript" src="scripts/angular.min.js"></script>
+    <script type="text/javascript" src="scripts/report.js"></script>
+  </head>
+  <body ng-controller="WeatherController as weather">
+
+    <section ng-repeat="reading in weather.readings">
+      <h5><strong>Weather in Denver, Colorado</strong></h5>
+      <h5><strong>{{+ (reading.date|date:"fullDate")}}</strong></h5>
+      <h5><strong>High Temp: </strong> <em>{{+ reading.high}}</em></h5>
+      <h5><strong>Low Temp: </strong> <em>{{+ reading.low}}</em></h5>
+      <h5><strong>Rainfall: </strong> <em>{{+ reading.rain}}"</em></h5>
+      <div ng-if="reading.rain === '0.00'">
+        <img src="images/sun.jpg" />
+      </div>
+      <div ng-if="reading.rain > '0.00' && reading.rain < '0.21'">
+        Here
+        <!--<img src="images/sun.jpg" />-->
+      </div>
+      <div ng-if="reading.rain === '0.00'">
+        <!--<img src="images/sun.jpg" />-->
+      </div>
+      <h5>*************************</h5>
+    </section>
+
+    <section ng-controller="TabController as tab">
+      <ul class="nav nav-pills">
+        <li ng-class="{ active: tab.isSelected(1) }">
+          <a href ng-click="tab.selectTab(1)">High Temp</a>
+        </li>
+
+        <li ng-class="{ active: tab.isSelected(2) }">
+          <a href ng-click="tab.selectTab(2)">Low Temp</a>
+        </li>
+
+        <li ng-class="{ active: tab.isSelected(3) }">
+          <a href ng-click="tab.selectTab(3)">Rainfall</a>
+
+        </li>
+
+      </ul>
+
+      <div class="panel" ng-show="tab.isSelected(1)">
+        <h5>High Temp</h5>
+        <p>{{weather.readings[0].high}}</p>
+      </div>
+
+      <div class="panel" ng-show="tab.isSelected(2)">
+        <h5>Low Temp</h5>
+        <p>{{weather.readings[0].low}}</p>
+      </div>
+
+      <div class="panel" ng-show="tab.isSelected(3)">
+        <h5>Rainfall</h5>
+        <p>{{weather.readings[0].rain}}</p>
+
+      </div>
+
+    </section>
+
+  </body>
+
+</html>
